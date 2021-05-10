@@ -10,23 +10,21 @@ import com.project.utils.DbConnect;
 public class PostDOO implements IPostDAO{
 
 	@Override
-	public boolean insertPost(int pid, int uid, String title, String content, String status, int votes,
-			Timestamp createdAt, Timestamp lastUpdatedAt, int reported) {
+	public boolean insertPost(int uid, String title, int categoryId, String content, int votes, Timestamp timestamp, int reported) {
 		
 		
-		String sql = "INSERT INTO Post(PID, UID, title, content, status, votes, created_at, last_updated_at, reported) VALUES(?,?,?,?,?,?,?,?,?)";
+		String sql = "INSERT INTO Post(UID, title, category_id, content, votes, time_stamp, reported) VALUES(?,?,?,?,?,?,?)";
 		
 		try {
 			PreparedStatement ps = DbConnect.getMySQLConn().prepareStatement(sql);
-			ps.setInt(1, pid);
-			ps.setInt(2, uid);
-			ps.setString(3, title);
+//			ps.setInt(1, pid);
+			ps.setInt(1, uid);
+			ps.setString(2, title);
+			ps.setInt(3, categoryId);
 			ps.setString(4, content);
-			ps.setString(5, status);
-			ps.setInt(6, votes);
-			ps.setTimestamp(7, createdAt);
-			ps.setTimestamp(8, lastUpdatedAt);
-			ps.setInt(9, reported);
+			ps.setInt(5, votes);
+			ps.setTimestamp(6, timestamp);
+			ps.setInt(7, reported);
 			
 			return ps.executeUpdate() > 0;
 		} catch (SQLException e) {
@@ -40,7 +38,7 @@ public class PostDOO implements IPostDAO{
 	public List<Post> getAllPosts() {
 		
 		List<Post> posts = new ArrayList<>();
-		String statement = "select PID, UID, title, content, status, votes, created_at, last_updated_at, reported from Post";
+		String statement = "select PID, UID, title, category_id, content, votes, time_stamp, reported from Post";
 		
 		try (
 			PreparedStatement ps = DbConnect.getMySQLConn().prepareStatement(statement);
@@ -51,12 +49,11 @@ public class PostDOO implements IPostDAO{
 						Post post = new Post(rs.getInt(1),
 								rs.getInt(2),
 								rs.getString(3),
-								rs.getString(4),
+								rs.getInt(4),
 								rs.getString(5),
 								rs.getInt(6),
 								rs.getTimestamp(7),
-								rs.getTimestamp(8),
-								rs.getInt(9)); 
+								rs.getInt(8)); 
 						
 						posts.add(post); 
 					}
@@ -84,18 +81,17 @@ public class PostDOO implements IPostDAO{
 	}
 
 	@Override
-	public boolean updatePost(int pid, String title, String content, String status, int votes, Timestamp lastUpdateAt,
-			int reported) {
+	public boolean updatePost(int pid,String title, String content,  int categoryId, int votes, Timestamp timestamp, int reported) {
 		
-		String sql = "UPDATE Post SET title=?, content=?, status=?, votes=?, last_updated_at=?, reported=? WHERE PID=?";
+		String sql = "UPDATE Post SET title=?, content=?, category_id=?, votes=?, time_stamp=?, reported=? WHERE PID=?";
 		
 		try {
 			PreparedStatement ps = DbConnect.getMySQLConn().prepareStatement(sql);
 			ps.setString(1, title);
 			ps.setString(2, content);
-			ps.setString(3, status);
+			ps.setInt(3, categoryId);
 			ps.setInt(4, votes);
-			ps.setTimestamp(5, lastUpdateAt);
+			ps.setTimestamp(5, timestamp);
 			ps.setInt(6, reported);
 			ps.setInt(7, pid);
 			
