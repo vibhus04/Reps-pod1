@@ -7,6 +7,8 @@ import com.project.entity.Tags;
 public interface ITagsDAO {
 
 	
+	public boolean insertTag(int pid, String content);
+	
 	public List<Tags> getAllTagsByPostId(int pid);
 	
 	public List<Tags> getAllTags();

@@ -44,12 +44,16 @@ public class App {
 //		}
 //		
 //		
-//		System.out.println("----------- TAGS ----------");
-//		System.out.println();
-//		ITagsDAO tagsDAO = new TagsDOO();
+		System.out.println("----------- TAGS ----------");
+		System.out.println();
+		ITagsDAO tagsDAO = new TagsDOO();
 //		tagsDAO.updateTag(2, "fitness");
-//		for(Tags t: tagsDAO.getAllTags()) {
-//			System.out.println(t);
-//		}
+		tagsDAO.insertTag(2, "lifestyle");
+//		tagsDAO.updateTag(1, "health and fitness");
+//		tagsDAO.deleteTagbyId(2);
+		tagsDAO.deleteAllTagsByPostId(2);
+		for(Tags t: tagsDAO.getAllTags()) {
+			System.out.println(t);
+		}
 	}
 }

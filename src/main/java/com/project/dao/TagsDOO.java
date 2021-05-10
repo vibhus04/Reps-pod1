@@ -13,7 +13,7 @@ public class TagsDOO implements ITagsDAO{
 	public List<Tags> getAllTagsByPostId(int pid) {
 		
 		List<Tags> tags = new ArrayList<>();
-		String sql = "select ID, PID, CONTENT from Tags WHERE PID=?";
+		String sql = "select TID, PID, content from Tags_post WHERE PID=?";
 		
 		try {
 			PreparedStatement ps = DbConnect.getMySQLConn().prepareStatement(sql);
@@ -40,7 +40,7 @@ public class TagsDOO implements ITagsDAO{
 	@Override
 	public List<Tags> getAllTags() {
 		List<Tags> tags = new ArrayList<>();
-		String sql = "select ID, PID, CONTENT from Tags";
+		String sql = "select TID, PID, content from Tags_post";
 		
 		PreparedStatement ps;
 		try {
@@ -65,7 +65,7 @@ public class TagsDOO implements ITagsDAO{
 
 	@Override
 	public boolean deleteTagbyId(int id) {
-		String sql = "DELETE FROM Tags WHERE ID = ?";
+		String sql = "DELETE FROM Tags_post WHERE TID = ?";
 		try {
 			PreparedStatement ps = DbConnect.getMySQLConn().prepareStatement(sql);
 			ps.setInt(1, id);
@@ -80,7 +80,7 @@ public class TagsDOO implements ITagsDAO{
 
 	@Override
 	public boolean deleteAllTagsByPostId(int pid) {
-		String sql = "DELETE FROM Tags WHERE PID = ?";
+		String sql = "DELETE FROM Tags_post WHERE PID = ?";
 		try {
 			PreparedStatement ps = DbConnect.getMySQLConn().prepareStatement(sql);
 			ps.setInt(1, pid);
@@ -95,7 +95,7 @@ public class TagsDOO implements ITagsDAO{
 
 	@Override
 	public boolean updateTag(int id, String content) {
-		String sql = "UPDATE Tags SET CONTENT=? WHERE ID=?";
+		String sql = "UPDATE Tags_post SET content=? WHERE TID=?";
 		
 		try {
 			PreparedStatement ps = DbConnect.getMySQLConn().prepareStatement(sql);
@@ -107,6 +107,26 @@ public class TagsDOO implements ITagsDAO{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		return false;
+	}
+
+	@Override
+	public boolean insertTag(int pid, String content) {
+		// TODO Auto-generated method stub
+		
+		String sql = "INSERT INTO Tags_post(PID, content) values (?,?)";
+		
+		try {
+			PreparedStatement ps = DbConnect.getMySQLConn().prepareStatement(sql);
+			ps.setInt(1, pid);
+			ps.setString(2, content);
+			
+			return ps.executeUpdate() > 0;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		return false;
 	}
 
