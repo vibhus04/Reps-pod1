@@ -18,7 +18,7 @@ public class PostDOO implements IPostDAO{
 		
 		try {
 			PreparedStatement ps = DbConnect.getMySQLConn().prepareStatement(sql);
-//			ps.setInt(1, pid);
+//			ps.setInt(1, pid);  taken care by 'autoincrement' property in DB
 			ps.setInt(1, uid);
 			ps.setString(2, title);
 			ps.setInt(3, categoryId);
@@ -39,10 +39,10 @@ public class PostDOO implements IPostDAO{
 	public List<Post> getAllPosts() {
 		
 		List<Post> posts = new ArrayList<>();
-		String statement = "select PID, UID, title, category_id, content, votes, time_stamp, reported from Post";
+		String sql = "select PID, UID, title, category_id, content, votes, time_stamp, reported from Post";
 		
 		try (
-			PreparedStatement ps = DbConnect.getMySQLConn().prepareStatement(statement);
+			PreparedStatement ps = DbConnect.getMySQLConn().prepareStatement(sql);
 			ResultSet rs = ps.executeQuery();
 				)
 				{	
@@ -274,6 +274,40 @@ public class PostDOO implements IPostDAO{
 			}
 		return posts;
 	}
+
+    
+	@Override
+	public List<Post> getAllPostsByCategoryId(int categoryId)
+	{
+		List<Post> posts = new ArrayList<>();
+		String sql = "select PID, UID, title, category_id, content, votes, time_stamp, reported from Post where category_id= ?";
+		
+		try {
+			PreparedStatement ps = DbConnect.getMySQLConn().prepareStatement(sql);
+			ps.setInt(1, categoryId);
+			ResultSet rs = ps.executeQuery();	
+					while(rs.next()) {		
+						Post post = new Post(rs.getInt(1),
+								rs.getInt(2),
+								rs.getString(3),
+								rs.getInt(4),
+								rs.getString(5),
+								rs.getInt(6),
+								rs.getTimestamp(7),
+								rs.getInt(8)); 
+						
+						posts.add(post); 
+					}
+				} catch (SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+		return posts;
+	}
+	
+	
+	
+>>>>>>> 86ba913f54a999e67d64ce2d3975b920218434c7
 	
 	private void checkPostId(int pid) throws InvalidId {
 		// TODO Auto-generated method stub
