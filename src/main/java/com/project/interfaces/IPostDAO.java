@@ -20,5 +20,14 @@ public interface IPostDAO {
 	
 	public boolean updateVoteCountbyId(int pid, int votes);
 	
+	public List<Post> getAllPostbyUserId(int pid);
+	
+	public List<Post> getAllVisiblePosts();
+	
+	public boolean updateStatusofPost(int pid,int newstatus);
+	
+	public List<Post> getAllDraftPosts(int uid);
+	
+	public List<Post> getAllReportedPosts();
 	
 }

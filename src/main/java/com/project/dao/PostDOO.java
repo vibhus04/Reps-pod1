@@ -6,6 +6,7 @@ import java.util.*;
 import com.project.entity.*;
 import com.project.interfaces.IPostDAO;
 import com.project.utils.DbConnect;
+import com.project.exception.*;
 
 public class PostDOO implements IPostDAO{
 
@@ -67,6 +68,14 @@ public class PostDOO implements IPostDAO{
 
 	@Override
 	public boolean deletePostbyId(int pid) {
+		
+		try {
+			checkPostId(pid);
+		} catch(InvalidId e) {
+			e.printStackTrace();
+			return false;
+		}
+		
 		String sql = "DELETE FROM Post WHERE PID = ?";
 		try {
 			PreparedStatement ps = DbConnect.getMySQLConn().prepareStatement(sql);
@@ -108,6 +117,13 @@ public class PostDOO implements IPostDAO{
 	@Override
 	public boolean updateVoteCountbyId(int pid, int votes) {
 		
+		try {
+			checkPostId(pid);
+		} catch(InvalidId e1) {
+			e1.printStackTrace();
+			return false;
+		}
+		
 		String sql = "UPDATE Post SET votes=? WHERE PID=?";
 		
 		try {
@@ -120,11 +136,159 @@ public class PostDOO implements IPostDAO{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		
 		return false;
 	}
 
-	
+	@Override
+	public List<Post> getAllPostbyUserId(int uid) {
+		List<Post> posts = new ArrayList<>();
+		String statement = "select * from Post where UID = ?";
+		try {
+				PreparedStatement ps= DbConnect.getMySQLConn().prepareStatement(statement);
+				ps.setInt(1,uid);
+				ResultSet rs = ps.executeQuery();
+				while(rs.next()) {
+					Post post = new Post(rs.getInt(1),
+							rs.getInt(2),
+							rs.getString(3),
+							rs.getInt(4),
+							rs.getString(5),
+							rs.getInt(6),
+							rs.getTimestamp(7),
+							rs.getInt(8)); 
+						
+					posts.add(post); 
+				}
+			}catch(SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		return posts;
+	}
 
+	@Override
+	public List<Post> getAllVisiblePosts() {
+		List<Post> posts = new ArrayList<>();
+		String statement = "select * from Post where reported >= 100";
+		try (
+				PreparedStatement ps= DbConnect.getMySQLConn().prepareStatement(statement);
+				ResultSet rs = ps.executeQuery();
+				)
+				{	
+					while(rs.next()) {
+						Post post = new Post(rs.getInt(1),
+							rs.getInt(2),
+							rs.getString(3),
+							rs.getInt(4),
+							rs.getString(5),
+							rs.getInt(6),
+							rs.getTimestamp(7),
+							rs.getInt(8)); 
+						
+						posts.add(post); 
+					}
+				}catch(SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		return posts;
+	}
+
+	@Override
+	public boolean updateStatusofPost(int pid,int newstatus) {
+		
+		try {
+			checkPostId(pid);
+		} catch(InvalidId e1) {
+			e1.printStackTrace();
+			return false;
+		}
+		
+		String sql= "UPDATE POST SET reported = ? where PID = ?";
+		
+		try {
+			PreparedStatement ps = DbConnect.getMySQLConn().prepareStatement(sql);
+			ps.setInt(1, newstatus);
+			ps.setInt(2, pid);
+			
+			return ps.executeUpdate() > 0;
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
+
+	@Override
+	public List<Post> getAllDraftPosts(int uid) {
+		List<Post> posts = new ArrayList<>();
+		String statement = "select * from Post where UID = ? and reported = -100";
+		try {
+				PreparedStatement ps= DbConnect.getMySQLConn().prepareStatement(statement);
+				ps.setInt(1, uid);
+				ResultSet rs = ps.executeQuery();
+					
+				while(rs.next()) {
+					Post post = new Post(rs.getInt(1),
+						rs.getInt(2),
+						rs.getString(3),
+						rs.getInt(4),
+						rs.getString(5),
+						rs.getInt(6),
+						rs.getTimestamp(7),
+						rs.getInt(8)); 
+						
+					posts.add(post); 
+				}
+			}catch(SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		return posts;
+	}
+
+	@Override
+	public List<Post> getAllReportedPosts() {
+		List<Post> posts = new ArrayList<>();
+		String statement = "select * from Post where reproted <= 0 and reported != -100";
+		try (
+				PreparedStatement ps= DbConnect.getMySQLConn().prepareStatement(statement);
+				ResultSet rs = ps.executeQuery();
+				)
+				{	
+					while(rs.next()) {
+						Post post = new Post(rs.getInt(1),
+							rs.getInt(2),
+							rs.getString(3),
+							rs.getInt(4),
+							rs.getString(5),
+							rs.getInt(6),
+							rs.getTimestamp(7),
+							rs.getInt(8)); 
+						
+						posts.add(post); 
+					}
+				}catch(SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		return posts;
+	}
+	
+	private void checkPostId(int pid) throws InvalidId {
+		// TODO Auto-generated method stub
+
+		String sqlForException = "SELECT * FROM questions WHERE PID = ?";
+		try {
+			PreparedStatement psException = DbConnect.getMySQLConn().prepareStatement(sqlForException);
+			psException.setInt(1, pid);
+			ResultSet rs = psException.executeQuery();
+			if (!rs.next()) {
+				throw new InvalidId("Question");
+			}
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+	}
 }
