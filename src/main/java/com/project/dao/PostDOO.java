@@ -307,8 +307,6 @@ public class PostDOO implements IPostDAO{
 	
 	
 	
->>>>>>> 86ba913f54a999e67d64ce2d3975b920218434c7
-	
 	private void checkPostId(int pid) throws InvalidId {
 		// TODO Auto-generated method stub
 
