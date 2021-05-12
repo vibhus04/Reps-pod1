@@ -11,7 +11,7 @@ public interface IComments_postDAO {
 	
 	public boolean insertComment(int comid, int votes, String content, int pid, int uid, Timestamp timestamp, int reported);
 	
-	public boolean updateComment(int comid, String content);
+	public boolean updateComment(int comid, int votes, String content, int pid, int uid, Timestamp timestamp, int reported);
 	
 	public boolean deleteCommentById(int comid);
 	public List<Comments_post> getAllComments();
