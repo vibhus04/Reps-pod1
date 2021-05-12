@@ -21,7 +21,7 @@ public class App {
 		
 		
 		Date date = new Date();
-//		postDAO.insertPost(1, "My guide to a healthy lifestype", 1,"CONTENNT", 0, new Timestamp(date.getTime()), 0);
+		postDAO.insertPost(1, "My guide to a healthy lifestype", 1,"CONTENNT", 0, new Timestamp(date.getTime()), 0);
 		for(Post p: postDAO.getAllPosts()) {
 			System.out.println(p);
 		}
