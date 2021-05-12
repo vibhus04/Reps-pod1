@@ -32,7 +32,7 @@ public class MediaDAO implements IMediaDAO{
 		String sql = "Select link From Media_post where PID=?";
 		try {
 				PreparedStatement ps = DbConnect.getMySQLConn().prepareStatement(sql);
-				ps.setInt(2, pid);
+				ps.setInt(1, pid);
 				ResultSet rs = ps.executeQuery();	
 				while(rs.next()) {		
 						post_media = new String(rs.getString(1));
