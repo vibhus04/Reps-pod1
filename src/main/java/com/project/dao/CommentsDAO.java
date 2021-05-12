@@ -180,7 +180,11 @@ public class CommentsDAO implements IComments_postDAO{
 	 public Comments_post getMostVotedComment(int pid) {
 		
 		 String sql="SELECT * from Comments_post where PID_id=? order by votes desc limit 1;";
+<<<<<<< HEAD
 		 Comments_post mostVotedComment= new Comments_post();
+=======
+		 Comments_post mostVotedComment = null;
+>>>>>>> 3e9327290c92115fcab23dbdeff337d430ce0f42
 		 //=new Comments_post();
 		 try {
 				PreparedStatement ps= DbConnect.getMySQLConn().prepareStatement(sql);

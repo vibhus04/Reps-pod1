@@ -10,6 +10,31 @@ import com.project.exception.*;
 
 public class PostDAO implements IPostDAO{
 
+	
+	@Override
+	public boolean insertPost(int pid, int uid, String title, int categoryId, String content, int votes,
+			Timestamp timestamp, int reported) {
+		String sql = "INSERT INTO Post(PID, UID, title, category_id, content, votes, time_stamp, reported) VALUES(?,?,?,?,?,?,?,?)";
+		
+		try {
+			PreparedStatement ps = DbConnect.getMySQLConn().prepareStatement(sql);
+			ps.setInt(1, pid);  
+			ps.setInt(2, uid);
+			ps.setString(3, title);
+			ps.setInt(4, categoryId);
+			ps.setString(5, content);
+			ps.setInt(6, votes);
+			ps.setTimestamp(7, timestamp);
+			ps.setInt(8, reported);
+			
+			return ps.executeUpdate() > 0;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} 
+		return false;
+	}
+	
 	@Override
 	public boolean insertPost(int uid, String title, int categoryId, String content, int votes, Timestamp timestamp, int reported) {
 		
@@ -321,4 +346,6 @@ public class PostDAO implements IPostDAO{
 			e1.printStackTrace();
 		}
 	}
+
+	
 }
