@@ -8,6 +8,9 @@ public interface IMediaDAO {
 
 	
 	    //public List<Media> getAllMedia();
+		
+		public boolean createMedia(int mid, int pid, String link);
+	
 		public boolean createMedia(int pid, String link);
 		
 		public String getMediaByPostId(int pid);

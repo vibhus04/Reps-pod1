@@ -8,6 +8,24 @@ import com.project.interfaces.IMediaDAO;
 import com.project.utils.DbConnect;
 
 public class MediaDAO implements IMediaDAO{
+	
+	
+	@Override
+	public boolean createMedia(int mid, int pid, String link) {
+		String sql = "INSERT INTO Media_post(MID, link, PID) VALUES (?,?,?)";
+		try {
+			PreparedStatement ps = DbConnect.getMySQLConn().prepareStatement(sql);
+			ps.setInt(1, mid);
+			ps.setString(2, link);
+			ps.setInt(3, pid);
+			
+			return ps.executeUpdate() > 0;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} 
+		return false;
+	}
 
 	@Override
     public boolean createMedia(int pid, String link) {
@@ -80,6 +98,8 @@ public class MediaDAO implements IMediaDAO{
 		
 		return false;
 	}
+
+	
 	
 
 }
