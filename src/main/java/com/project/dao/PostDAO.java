@@ -250,7 +250,7 @@ public class PostDAO implements IPostDAO{
 	@Override
 	public List<Post> getAllReportedPosts() {
 		List<Post> posts = new ArrayList<>();
-		String statement = "select * from Post where reproted <= 0 and reported != -100";
+		String statement = "select * from Post where reported <= 0 and reported != -100";
 		try (
 				PreparedStatement ps= DbConnect.getMySQLConn().prepareStatement(statement);
 				ResultSet rs = ps.executeQuery();

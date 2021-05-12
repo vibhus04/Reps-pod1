@@ -1,13 +1,16 @@
 package com.project.client;
-
-
-
-import java.sql.Timestamp;
 import java.util.Date;
+import java.sql.Timestamp;
 
-import com.project.dao.*;
-import com.project.entity.*;
-import com.project.interfaces.*;
+import com.project.dao.CommentsDAO;
+import com.project.dao.PostDAO;
+import com.project.dao.TagsDAO;
+import com.project.entity.Post;
+import com.project.entity.Tags;
+import com.project.entity.Comments_post;
+import com.project.interfaces.IComments_postDAO;
+import com.project.interfaces.IPostDAO;
+import com.project.interfaces.ITagsDAO;
 
 public class App {
 	public static void main(String[] args) {
@@ -19,10 +22,22 @@ public class App {
 		
 		IPostDAO postDAO = new PostDAO();
 		
+	    IComments_postDAO CommentsDAO = new CommentsDAO();
+	   
+	    Date date = new Date();
+	    
+	   
+		CommentsDAO.insertComment(1,2, "This is the first comment", 2, 1, new Timestamp(date.getTime()), 0);
+		CommentsDAO.insertComment(1,4, "This is the second comment", 3, 1, new Timestamp(date.getTime()), 0);
+	    
+		for(Comments_post c: CommentsDAO.getAllComments())
+		{
+			System.out.println(c);
+		}
 		
-		Date date = new Date();
-//		postDAO.insertPost(1, "My guide to a healthy lifestype", 1,"CONTENNT", 0, new Timestamp(date.getTime()), 0);
-//		postDAO.insertPost(1, "Loose Weight", 2,"Exercise a lot", 0, new Timestamp(date.getTime()), 0);
+		
+    // 	postDAO.insertPost(1, "My guide to a healthy lifestype", 1,"CONTENT", 0, new Timestamp(date.getTime()), 0);
+//		postDAO.insertPost(1, "Lose Weight", 2,"Exercise a lot", 0, new Timestamp(date.getTime()), 0);
 //		postDAO.insertPost(1, "GainWeight", 3,"Eat a lot", 0, new Timestamp(date.getTime()), 0);
 //		postDAO.insertPost(1, "Archived Post", 4,"This is archived post", 0, new Timestamp(date.getTime()), -100);
 //		postDAO.insertPost(1, "Reported Post", 4,"This is reported post", 0, new Timestamp(date.getTime()), -5);
