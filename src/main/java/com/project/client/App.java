@@ -21,7 +21,7 @@ public class App {
 		
 		
 		Date date = new Date();
-//		postDAO.insertPost(1, "My guide to a healthy lifestype", 1,"CONTENNT", 0, new Timestamp(date.getTime()), 0);
+//		postDAO.insertPost(20,1, "How to exercise ", 5,"data", 0, new Timestamp(date.getTime()), 0);
 //		postDAO.insertPost(1, "Loose Weight", 2,"Exercise a lot", 0, new Timestamp(date.getTime()), 0);
 //		postDAO.insertPost(1, "GainWeight", 3,"Eat a lot", 0, new Timestamp(date.getTime()), 0);
 //		postDAO.insertPost(1, "Archived Post", 4,"This is archived post", 0, new Timestamp(date.getTime()), -100);

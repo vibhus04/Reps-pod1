@@ -7,7 +7,7 @@ import com.project.entity.Post;
 
 public interface IPostDAO {
 
-	
+	public boolean insertPost(int pid, int uid, String title, int categoryId, String content, int votes, Timestamp timestamp, int reported);
 	public boolean insertPost(int uid, String title, int categoryId, String content, int votes, Timestamp timestamp, int reported);
 	public List<Post> getAllPosts();
 	public boolean deletePostbyId(int pid);

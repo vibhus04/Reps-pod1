@@ -154,7 +154,7 @@ public class CommentsDAO implements IComments_postDAO{
 	 public Comments_post getMostVotedComment(int pid) {
 		
 		 String sql="SELECT * from Comments_post where PID_id=? order by votes desc limit 1;";
-		 Comments_post mostVotedComment;
+		 Comments_post mostVotedComment = null;
 		 //=new Comments_post();
 		 try {
 				PreparedStatement ps= DbConnect.getMySQLConn().prepareStatement(sql);
