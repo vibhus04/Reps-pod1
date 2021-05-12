@@ -14,5 +14,13 @@ public interface IComments_postDAO {
 	
 	public boolean deleteCommentById(int comid);
 	
+	public List<Comments_post> getAllCommentsByPostId(int pid);
+	
+	public boolean updateVotebyCommentId(int comid, int votes);
+	
+	public boolean updateStatusofComment(int comid,int newstatus);
+	
+	public Comments_post getMostVotedComment(int comid);
+	
 	
 }
