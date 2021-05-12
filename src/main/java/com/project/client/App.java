@@ -27,8 +27,8 @@ public class App {
 	    Date date = new Date();
 	    
 	   
-		CommentsDAO.insertComment(1,2, "This is the first comment", 2, 1, new Timestamp(date.getTime()), 0);
-		CommentsDAO.insertComment(1,4, "This is the second comment", 3, 1, new Timestamp(date.getTime()), 0);
+		CommentsDAO.insertComment(10, "new New Comment", 2, 1, new Timestamp(date.getTime()), 0);
+		CommentsDAO.insertComment(15, "Another new new comment", 3, 1, new Timestamp(date.getTime()), 0);
 	    
 		for(Comments_post c: CommentsDAO.getAllComments())
 		{
@@ -56,24 +56,24 @@ public class App {
 			System.out.println(p);
 		}
 		
-		System.out.println();
-		
-		System.out.println("These are all archived posts of user 1");
-		for(Post p: postDAO.getAllDraftPosts(1)) {
-			System.out.println(p);
-		}
-		
-		System.out.println();
-		
-		System.out.println("These are reported posts ");
-		for(Post p: postDAO.getAllReportedPosts()) {
-			System.out.println(p);
-		}
-		
-		System.out.println("These are all posts of category ID 1");
-		for(Post p : postDAO.getAllPostsByCategoryId(1)) {
-			System.out.println(p);
-		}
+//		System.out.println();
+//		
+//		System.out.println("These are all archived posts of user 1");
+//		for(Post p: postDAO.getAllDraftPosts(1)) {
+//			System.out.println(p);
+//		}
+//		
+//		System.out.println();
+//		
+//		System.out.println("These are reported posts ");
+//		for(Post p: postDAO.getAllReportedPosts()) {
+//			System.out.println(p);
+//		}
+//		
+//		System.out.println("These are all posts of category ID 1");
+//		for(Post p : postDAO.getAllPostsByCategoryId(1)) {
+//			System.out.println(p);
+//		}
 		
 		
 		
@@ -96,16 +96,16 @@ public class App {
 //		}
 //		
 //		
-		System.out.println("----------- TAGS ----------");
-		System.out.println();
-		ITagsDAO tagsDAO = new TagsDAO();
-//		tagsDAO.updateTag(2, "fitness");
-		tagsDAO.insertTag(2, "lifestyle");
-//		tagsDAO.updateTag(1, "health and fitness");
-//		tagsDAO.deleteTagbyId(2);
-		tagsDAO.deleteAllTagsByPostId(2);
-		for(Tags t: tagsDAO.getAllTags()) {
-			System.out.println(t);
-		}
+//		System.out.println("----------- TAGS ----------");
+//		System.out.println();
+//		ITagsDAO tagsDAO = new TagsDAO();
+////		tagsDAO.updateTag(2, "fitness");
+//		tagsDAO.insertTag(2, "lifestyle");
+////		tagsDAO.updateTag(1, "health and fitness");
+////		tagsDAO.deleteTagbyId(2);
+//		tagsDAO.deleteAllTagsByPostId(2);
+//		for(Tags t: tagsDAO.getAllTags()) {
+//			System.out.println(t);
+//		}
 	}
 }

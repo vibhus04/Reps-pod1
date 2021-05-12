@@ -13,6 +13,32 @@ import com.project.utils.DbConnect;
 
 public class CommentsDAO implements IComments_postDAO{
 	
+	
+	@Override
+	public boolean insertComment(int votes, String content, int pid, int uid, Timestamp timestamp, int reported) {
+String sql= "INSERT INTO Comments_post(votes, content, pid, uid, time_stamp, reported) VALUES (?,?,?,?,?,?)";
+		
+		
+		try {
+			PreparedStatement ps= DbConnect.getMySQLConn().prepareStatement(sql);
+			ps.setInt(1, votes);
+			ps.setString(2, content);
+			ps.setInt(3, pid);
+			ps.setInt(4, uid);
+			ps.setTimestamp(5, timestamp);
+			ps.setInt(6, reported);
+			
+			return ps.executeUpdate() >0;
+		}
+		
+		catch(SQLException e) 
+		{
+			//TODO Auto-generated
+			e.printStackTrace();
+		}
+		return false;
+	}
+	
 	@Override
 	public boolean insertComment(int comid, int votes, String content, int pid, int uid, Timestamp timestamp, int reported)
 	{
@@ -77,8 +103,8 @@ public class CommentsDAO implements IComments_postDAO{
 								rs.getString(3),
 								rs.getInt(4),
 								rs.getInt(5),
-								rs.getTimestamp(7),
-								rs.getInt(8)); 
+								rs.getTimestamp(6),
+								rs.getInt(7)); 
 							
 						commentsPost.add(commentPost); 
 					}
@@ -180,11 +206,10 @@ public class CommentsDAO implements IComments_postDAO{
 	 public Comments_post getMostVotedComment(int pid) {
 		
 		 String sql="SELECT * from Comments_post where PID_id=? order by votes desc limit 1;";
-<<<<<<< HEAD
+
 		 Comments_post mostVotedComment= new Comments_post();
-=======
-		 Comments_post mostVotedComment = null;
->>>>>>> 3e9327290c92115fcab23dbdeff337d430ce0f42
+
+
 		 //=new Comments_post();
 		 try {
 				PreparedStatement ps= DbConnect.getMySQLConn().prepareStatement(sql);
@@ -209,8 +234,7 @@ public class CommentsDAO implements IComments_postDAO{
 		 
 		 
 	 }
-	     
-	
+
 		
 		
 	

@@ -7,6 +7,7 @@ import com.project.entity.Comments_post;
 
 public interface IComments_postDAO {
 
+	public boolean insertComment(int votes, String content, int pid, int uid, Timestamp timestamp, int reported);
 	
 	public boolean insertComment(int comid, int votes, String content, int pid, int uid, Timestamp timestamp, int reported);
 	
