@@ -17,7 +17,7 @@ public interface IPostDAO {
 	public List<Post> getAllPostsByCategoryId(int categoryId);
 	
 	
-	
+//	public HashMap<Integer,HashMap<String,String>> getinBrief();
 	
 	public List<Post> getAllPostbyUserId(int pid);
 	
