@@ -30,22 +30,19 @@ public class MediaDAO implements IMediaDAO{
 	public String getMediaByPostId(int pid) {
 		String post_media="";
 		String sql = "Select link From Media_post where PID=?";
-		try (
+		try {
 				PreparedStatement ps = DbConnect.getMySQLConn().prepareStatement(sql);
-				ResultSet rs = ps.executeQuery();
-					)
-					{	
-						while(rs.next()) {		
-							post_media = new String(rs.getString(1));
-							ps.setInt(2, pid);
-						}
-					} catch (SQLException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
+				ps.setInt(2, pid);
+				ResultSet rs = ps.executeQuery();	
+				while(rs.next()) {		
+						post_media = new String(rs.getString(1));
+					}
+			} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+			}
 			
-			return post_media;
-		}
+		return post_media;
 	}
 	
 	@Override
