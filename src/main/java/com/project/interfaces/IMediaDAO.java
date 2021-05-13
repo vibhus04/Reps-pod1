@@ -7,14 +7,18 @@ import com.project.entity.Media;
 public interface IMediaDAO {
 
 	
-	public List<Media> getAllMedia();
+	    //public List<Media> getAllMedia();
+		
+		public boolean createMedia(int mid, int pid, String link);
 	
-	public List<Media> getAllMediaByPostId();
-	
-	public boolean updateLink(int id, String link);
-	
-	public boolean deleteMediabyId(int id);
-	
-	public boolean deleteAllMediaByPostId(int pid);
+		public boolean createMedia(int pid, String link);
+		
+		public String getMediaByPostId(int pid);
+		
+		public boolean updateMediaByPostId(int pid, String link);
+		
+		public boolean deleteMediaByPostId(int pid);
+		
+		//public boolean deleteAllMediaByPostId(int pid);
 	
 }

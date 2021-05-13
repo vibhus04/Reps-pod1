@@ -8,7 +8,7 @@ import com.project.entity.*;
 import com.project.interfaces.IUserDAO;
 import com.project.utils.DbConnect;
 
-public class UserDOO implements IUserDAO{
+public class UserDAO implements IUserDAO{
 	
 	
 	@Override

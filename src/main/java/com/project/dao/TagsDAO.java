@@ -7,7 +7,7 @@ import com.project.entity.Tags;
 import com.project.interfaces.ITagsDAO;
 import com.project.utils.DbConnect;
 
-public class TagsDOO implements ITagsDAO{
+public class TagsDAO implements ITagsDAO{
 
 	@Override
 	public List<Tags> getAllTagsByPostId(int pid) {
