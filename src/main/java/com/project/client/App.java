@@ -27,21 +27,24 @@ public class App {
 	    Date date = new Date();
 	    
 	   
-		CommentsDAO.insertComment(10, "new New Comment", 2, 1, new Timestamp(date.getTime()), 0);
-		CommentsDAO.insertComment(15, "Another new new comment", 3, 1, new Timestamp(date.getTime()), 0);
+//		CommentsDAO.insertComment(10, "new New Comment", 2, 1, new Timestamp(date.getTime()), 0);
+//		CommentsDAO.insertComment(15, "Another new new comment", 3, 1, new Timestamp(date.getTime()), 0);
 	    
 		
 		
-        CommentsDAO.updateComment(1, 10,  "updated comment!", 2, 1, new Timestamp(date.getTime()), 0);
-        CommentsDAO.updateComment(5, 10,  "Another updated comment!", 2, 1, new Timestamp(date.getTime()), 0);
+//        CommentsDAO.updateComment(1, 10,  "updated comment!", 2, 1, new Timestamp(date.getTime()), 0);
+//        CommentsDAO.updateComment(5, 10,  "Another updated comment!", 2, 1, new Timestamp(date.getTime()), 0);
         
         for(Comments_post c: CommentsDAO.getAllComments())
 		{
 			System.out.println(c);
 		}
-        
-        
-        CommentsDAO.deleteCommentById(30);
+        System.out.println();System.out.println();
+        CommentsDAO.updateVotebyCommentId(60, 500);
+        //CommentsDAO.deleteCommentById(30);
+        CommentsDAO.updateStatusofComment(60, 30);
+        Comments_post c=CommentsDAO.getMostVotedComment(3);
+        System.out.println(c);
         
     // 	postDAO.insertPost(1, "My guide to a healthy lifestype", 1,"CONTENT", 0, new Timestamp(date.getTime()), 0);
 //		postDAO.insertPost(1, "Lose Weight", 2,"Exercise a lot", 0, new Timestamp(date.getTime()), 0);
@@ -57,10 +60,16 @@ public class App {
 //		postDAO.deletePostbyId(15);
 //		postDAO.deletePostbyId(16);
 //		postDAO.deletePostbyId(6);
-		
+		System.out.println();System.out.println();
 		for(Post p: postDAO.getAllPosts()) {
 			System.out.println(p);
 		}
+		System.out.println();System.out.println();
+		
+//		for(Comments_post c: CommentsDAO.getAllCommentsByPostId(3)) {
+//			System.out.println(c);
+//		}
+		
 		
 //		System.out.println();
 //		

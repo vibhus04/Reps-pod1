@@ -157,8 +157,8 @@ String sql= "INSERT INTO Comments_post(votes, content, pid, uid, time_stamp, rep
 								rs.getString(3),
 								rs.getInt(4),
 								rs.getInt(5),
-								rs.getTimestamp(7),
-								rs.getInt(8)); 
+								rs.getTimestamp(6),
+								rs.getInt(7)); 
 							
 						commentsPost.add(commentPost); 
 					}
@@ -213,7 +213,7 @@ String sql= "INSERT INTO Comments_post(votes, content, pid, uid, time_stamp, rep
 	 @Override
 	 public Comments_post getMostVotedComment(int pid) {
 		
-		 String sql="SELECT * from Comments_post where PID_id=? order by votes desc limit 1;";
+		 String sql="SELECT * from Comments_post where PID=? order by votes desc limit 1;";
 
 		 Comments_post mostVotedComment= new Comments_post();
 
@@ -229,8 +229,8 @@ String sql= "INSERT INTO Comments_post(votes, content, pid, uid, time_stamp, rep
 							rs.getString(3),
 							rs.getInt(4),
 							rs.getInt(5),
-							rs.getTimestamp(7),
-							rs.getInt(8)); 
+							rs.getTimestamp(6),
+							rs.getInt(7)); 
 					mostVotedComment=commentPost;
 					 break;
 				}
